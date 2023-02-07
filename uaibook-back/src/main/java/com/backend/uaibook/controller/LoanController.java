@@ -1,10 +1,15 @@
 package com.backend.uaibook.controller;
 
+import com.backend.uaibook.dto.Response;
+import com.backend.uaibook.entity.Book;
 import com.backend.uaibook.entity.Loan;
 import com.backend.uaibook.service.LoanService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,8 +22,18 @@ public class LoanController {
     }
 
     @PostMapping("/loan")
-    public Loan createLoan(@RequestBody @Valid Loan loan) {
-        return loanService.createLoan(loan);
+    public ResponseEntity<Response<Loan>> createLoan(@RequestBody @Valid Loan loan, BindingResult result) {
+        Response<Loan> response = new Response<>();
+        if(result.hasErrors()) {
+            List<String> errors = new ArrayList<>();
+            result.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+            response.setErrors(errors);
+
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        response.setData(loanService.createLoan(loan));
+        return ResponseEntity.status(201).body(response);
     }
 
     @GetMapping("/loan")

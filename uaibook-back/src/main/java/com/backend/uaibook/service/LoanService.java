@@ -23,7 +23,8 @@ public class LoanService {
         if(loan.getDevolutionDate() == null || loan.getDevolutionDate().compareTo(LocalDate.now().plusMonths(1)) > 0)
             loan.setDevolutionDate(LocalDate.now().plusWeeks(2));
 
-        return loanRepository.save(loan);
+        Loan saved = loanRepository.save(loan);
+        return loanRepository.getLoanById(saved.getId());
     }
 
     public List<Loan> getLoan(Boolean open) {
