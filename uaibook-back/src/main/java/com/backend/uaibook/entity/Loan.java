@@ -1,34 +1,25 @@
 package com.backend.uaibook.entity;
 
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "loan")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Loan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-//    @NotNull(message = "Usuário vazio")
-//    @Column(name = "user_id")
-//    private Long userId;
-
-//    @NotNull(message = "Funcionário vazio")
-//    @Column(name = "employee_id")
-//    private Long employeeId;
-
-//    @NotNull(message = "Livro vazio")
-//    @Column(name = "book_id")
-//    private Long bookId;
 
     @Column(name = "loan_date")
     private LocalDate loanDate;
@@ -40,8 +31,8 @@ public class Loan {
     private Boolean isOpen;
 
     @NotNull(message = "Usuário vazio")
-    @ManyToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
     private Users user;
 
     @NotNull(message = "Funcionário vazio")
@@ -50,7 +41,7 @@ public class Loan {
     private Employee employee;
 
     @NotNull(message = "Livro vazio")
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 }

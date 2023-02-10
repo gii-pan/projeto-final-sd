@@ -11,20 +11,22 @@ import java.util.List;
 public class LoanService {
 
     private final LoanRepository loanRepository;
+    private final BookService bookService;
 
-    public LoanService(LoanRepository loanRepository) {
+    public LoanService(LoanRepository loanRepository, BookService bookService) {
         this.loanRepository = loanRepository;
+        this.bookService = bookService;
     }
 
     public Loan createLoan(Loan loan) {
         loan.setIsOpen(true);
         loan.setLoanDate(LocalDate.now());
+        loan.setBook(bookService.getBookById(loan.getBook().getId()));
 
         if(loan.getDevolutionDate() == null || loan.getDevolutionDate().compareTo(LocalDate.now().plusMonths(1)) > 0)
             loan.setDevolutionDate(LocalDate.now().plusWeeks(2));
 
-        Loan saved = loanRepository.save(loan);
-        return loanRepository.getLoanById(saved.getId());
+        return loanRepository.save(loan);
     }
 
     public List<Loan> getLoan(Boolean open) {

@@ -1,7 +1,6 @@
 package com.backend.uaibook.controller;
 
 import com.backend.uaibook.dto.Response;
-import com.backend.uaibook.entity.Book;
 import com.backend.uaibook.entity.Loan;
 import com.backend.uaibook.service.LoanService;
 import jakarta.validation.Valid;

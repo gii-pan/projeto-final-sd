@@ -3,6 +3,7 @@ package com.backend.uaibook.entity;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @Table(name = "books")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,18 +50,4 @@ public class Book {
     @NotEmpty(message = "Editora vazia")
     @Column(name = "publisher")
     private String publisher;
-
-//    public List<String> getCategories() {
-//        return categories.stream().map(Category::name).toList();
-//    }
-
-//    public void setCategories(List<String> categories) {
-//        List<Category> categoryList = new ArrayList<>();
-//        categories.forEach(categoryString -> {
-//            Category category = Category.getCategory(categoryString);
-//            if(category != null) categoryList.add(category);
-//        });
-//
-//        this.categories = categoryList;
-//    }
 }
