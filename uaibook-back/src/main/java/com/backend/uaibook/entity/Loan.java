@@ -32,7 +32,7 @@ public class Loan {
 
     @NotNull(message = "Usuário vazio")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users user;
 
     @NotNull(message = "Funcionário vazio")

@@ -44,7 +44,6 @@ public class LoanController {
             response.setErrors(Collections.singletonList(e.getMessage()));
             return  ResponseEntity.status(400).body(response);
         }
-
     }
 
     @GetMapping("/loan")
