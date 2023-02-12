@@ -26,7 +26,7 @@ public class BookService {
 
     public Book getBookById(Long id) {
         Optional<Book> book = bookRepository.findById(id);
-        return book.orElse(null);
+        return book.orElseThrow(() -> new NullPointerException("Book not found") );
     }
 
     public List<Book> getBooksFromUser(String cpf) {

@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,9 +31,20 @@ public class LoanController {
 
             return ResponseEntity.badRequest().body(response);
         }
+        try {
+            response.setData(loanService.createLoan(loan));
+            return ResponseEntity.status(201).body(response);
+        } catch (NullPointerException ne) {
+            response.setData(null);
+            response.setErrors(Collections.singletonList(ne.getMessage()));
+            return  ResponseEntity.status(404).body(response);
+        }
+        catch (Exception e) {
+            response.setData(null);
+            response.setErrors(Collections.singletonList(e.getMessage()));
+            return  ResponseEntity.status(400).body(response);
+        }
 
-        response.setData(loanService.createLoan(loan));
-        return ResponseEntity.status(201).body(response);
     }
 
     @GetMapping("/loan")
