@@ -2,6 +2,7 @@ package com.backend.uaibook.controller;
 
 import com.backend.uaibook.dto.Response;
 import com.backend.uaibook.entity.Book;
+import com.backend.uaibook.entity.Category;
 import com.backend.uaibook.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,11 @@ public class BookController {
     @GetMapping("/book")
     public List<Book> getBooks() {
         return bookService.getBooks();
+    }
+
+    @GetMapping("/book/categories")
+    public List<String> getCategories() {
+        return Category.getNames();
     }
 
     @PutMapping("/book/{id}")
