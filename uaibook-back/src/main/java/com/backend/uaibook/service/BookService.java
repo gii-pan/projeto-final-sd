@@ -42,24 +42,35 @@ public class BookService {
         if(book.getName() != null)
             bookSaved.setName(book.getName());
 
-        if(book.getCategories() != null)
-            bookSaved.setCategories(book.getCategories());
+        if(book.getIsbn() != null)
+            bookSaved.setIsbn(book.getIsbn());
 
-        if(book.getAmount() != null)
-            bookSaved.setAmount(book.getAmount());
+        if(book.getAuthors() != null)
+            bookSaved.setAuthors(book.getAuthors());
 
         if(book.getYear() != null)
             bookSaved.setYear(book.getYear());
 
+        if(book.getAmount() != null)
+            bookSaved.setAmount(book.getAmount());
+
+        if(book.getPublisher() != null)
+            bookSaved.setPublisher(book.getPublisher());
+
+        if(book.getCategories() != null)
+            bookSaved.setCategories(book.getCategories());
+
         return bookRepository.save(bookSaved);
     }
 
-    public void deleteBook(Long id) {
+    public Book deleteBook(Long id) {
         Book bookSaved = bookRepository.getBookById(id);
 
         if(bookSaved == null)
             throw  new NullPointerException("Book not found");
 
         bookRepository.delete(bookSaved);
+
+        return bookSaved;
     }
 }
