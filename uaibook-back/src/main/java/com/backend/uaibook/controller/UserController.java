@@ -4,11 +4,13 @@ import com.backend.uaibook.entity.Employee;
 import com.backend.uaibook.entity.Users;
 import com.backend.uaibook.repository.EmployeeRepository;
 import com.backend.uaibook.repository.UserRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 public class UserController {
 
